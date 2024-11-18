@@ -7,15 +7,14 @@ import Records from './Pages/Records/Records'
 import Installments from './Pages/Installments/Installments'
 import Payments from './Pages/Payments/Payments'
 import Login from './Pages/Login/Login'
-// import Layout from './components/Layout/Layout'
-import MainLayout from './Layout/MainLayout'
+import Layout from './components/Layout/Layout'
 
 function App() {
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <MainLayout/>,
+      element: <Layout/>,
       children: [
         {
           path: "",

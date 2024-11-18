@@ -1,4 +1,4 @@
-import Chart from '@/Chart/Chart'
+import Chart from '@/components/Chart/Chart'
 import React from 'react'
 import { AiOutlineProduct } from 'react-icons/ai'
 import { SiAlwaysdata, SiTraefikproxy } from 'react-icons/si'
