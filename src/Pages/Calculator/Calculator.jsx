@@ -10,7 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import useCalculators from '@/Hooks/useCalculator'
 
 const Calculator = () => {
-  const { product, setProduct, handleSubmit, handleChange } = useCalculators();
+  const { product, setProduct, handleSubmit, handleChange, installments } = useCalculators();
   // Update the product state directly when the date is selected
   const handleDateSelect = (selectedDate) => {
     const formattedDate = format(selectedDate, "yyyy-MM-dd"); // format the date to a suitable format
@@ -89,30 +89,16 @@ const Calculator = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className=' text-left border border-[#1a2b2e] p-2'>1</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>8/11/24</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>November</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>2024</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>25000</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>125000</td>
+              {installments.map((item,index)=>(
+              <tr key={index}>
+                <td className=' text-left border border-[#1a2b2e] p-2'>{index + 1}</td>
+                <td className=' text-center border border-[#1a2b2e] p-2'>{item.date}</td>
+                <td className=' text-center border border-[#1a2b2e] p-2'>{item.month}</td>
+                <td className=' text-center border border-[#1a2b2e] p-2'>{item.year}</td>
+                <td className=' text-center border border-[#1a2b2e] p-2'>{item.installments}</td>
+                <td className=' text-center border border-[#1a2b2e] p-2'>{item.balance}</td>
               </tr>
-              <tr>
-                <td className=' text-left border border-[#1a2b2e] p-2'>2</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>8/12/24</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>December</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>2024</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>25000</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>100000</td>
-              </tr>
-              <tr>
-                <td className=' text-left border border-[#1a2b2e] p-2'>3</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>8/01/25</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>January</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>2025</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>25000</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>75000</td>
-              </tr>
+              ))}
             </tbody>
           </table>
         </div>

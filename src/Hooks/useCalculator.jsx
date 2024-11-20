@@ -21,6 +21,7 @@ const useCalculators = () => {
   }
 
   // Automatically calculate grand total
+  const [installments, setInstallmants] = useState([]);
   useEffect(()=>{
     const {prprice, pradvance, prprofit} = product;
     let grandAmount = 0;
@@ -35,11 +36,39 @@ const useCalculators = () => {
       finalAmount = grandAmount + netAmount;
       setProduct((prev)=> ({...prev, prnetamount: finalAmount}))
     }
+    
   },[product.prprice, product.pradvance, product.prprofit])
+
+  // Data inserting into table on Monthwise
+  const TableData = () =>{
+    const {prmonths, prdate, prnetamount} = product;
+    if(prnetamount && prmonths){
+      const installmentsAmount = prnetamount/prmonths;
+      let balance = prnetamount;
+      const installmentsArray = [];
+      const startDate = new Date(prdate);
+      for(let i = 0; i<prmonths; i++){
+        let installmentDate = new Date(startDate);
+        installmentDate.setMonth(startDate.getMonth()+ i);
+        balance -= installmentsAmount;
+        installmentsArray.push({
+          date: installmentDate.toLocaleDateString(),
+          month: installmentDate.toLocaleString("default",{month: "long"}),
+          year: installmentDate.getFullYear(),
+          installments: installmentsAmount.toFixed(),
+          balance: balance
+        })
+      }
+      setInstallmants(installmentsArray)
+    }
+  }
+
   // Function for Form Submitting
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Product ", product)
+    TableData();
+    console.log("Installments ",installments)
     setProduct({
       prname: "",
       prprice: "",
@@ -49,7 +78,8 @@ const useCalculators = () => {
       prnetamount: "",
       prmonths: ""
     })
+
 }
-  return {product , setProduct, handleChange, handleSubmit}
+  return {product , setProduct, handleChange, handleSubmit, installments}
 }
 export default useCalculators
