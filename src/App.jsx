@@ -8,6 +8,7 @@ import Installments from './Pages/Installments/Installments'
 import Payments from './Pages/Payments/Payments'
 import Login from './Pages/Login/Login'
 import Layout from './components/Layout/Layout'
+import PrintPage from './Pages/Calculator/PrintPage'
 
 function App() {
 
@@ -39,6 +40,10 @@ function App() {
         {
           path: "installments",
           element: <Installments/>
+        },
+        {
+          path: "print",
+          element: <PrintPage/>
         },
         {
           path: "payments",

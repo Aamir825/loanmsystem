@@ -10,7 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import useCalculators from '@/Hooks/useCalculator'
 
 const Calculator = () => {
-  const { product, setProduct, handleSubmit, handleChange, installments } = useCalculators();
+  const { product, setProduct, handleSubmit, handleChange, installments, pButton, handlePrint } = useCalculators();
   // Update the product state directly when the date is selected
   const handleDateSelect = (selectedDate) => {
     const formattedDate = format(selectedDate, "yyyy-MM-dd"); // format the date to a suitable format
@@ -101,6 +101,12 @@ const Calculator = () => {
               ))}
             </tbody>
           </table>
+          <button
+           className={`w-[28%] py-2 px-2 bg-transparent border mt-2 border-[#1a2b2e] rounded-md
+            ${pButton == true? "flex" : "hidden"} 
+            justify-center items-center gap-1 hover:tracking-wider duration-150`} onClick={handlePrint}>
+            Print Installment <MdKeyboardDoubleArrowRight size={20} />
+          </button>
         </div>
       </div>
     </>

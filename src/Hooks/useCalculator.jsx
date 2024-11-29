@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const useCalculators = () => {
+
+  const navigate = useNavigate();
 
   // state for product calculator
   const [product, setProduct] = useState({
@@ -40,6 +43,7 @@ const useCalculators = () => {
   },[product.prprice, product.pradvance, product.prprofit])
 
   // Data inserting into table on Monthwise
+  const [pButton, setpButton] = useState(false);
   const TableData = () =>{
     const {prmonths, prdate, prnetamount} = product;
     if(prnetamount && prmonths){
@@ -60,6 +64,7 @@ const useCalculators = () => {
         })
       }
       setInstallmants(installmentsArray)
+      setpButton(true);
     }
   }
 
@@ -78,8 +83,13 @@ const useCalculators = () => {
       prnetamount: "",
       prmonths: ""
     })
+  }
 
-}
-  return {product , setProduct, handleChange, handleSubmit, installments}
+  // Function for Print Installments
+  const handlePrint = () =>{
+    navigate("/print");
+  }
+
+  return {product , setProduct, handleChange, handleSubmit, installments, pButton, handlePrint}
 }
 export default useCalculators
