@@ -8,9 +8,10 @@ import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import useCalculators from '@/Hooks/useCalculator'
+import PrintPage from './PrintPage'
 
 const Calculator = () => {
-  const { product, setProduct, handleSubmit, handleChange, installments, pButton, handlePrint } = useCalculators();
+  const { product, setProduct, handleSubmit, handleChange, installments, pButton, handlePrint, handleClear } = useCalculators();
   // Update the product state directly when the date is selected
   const handleDateSelect = (selectedDate) => {
     const formattedDate = format(selectedDate, "yyyy-MM-dd"); // format the date to a suitable format
@@ -89,26 +90,35 @@ const Calculator = () => {
               </tr>
             </thead>
             <tbody>
-              {installments.map((item,index)=>(
-              <tr key={index}>
-                <td className=' text-left border border-[#1a2b2e] p-2'>{index + 1}</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>{item.date}</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>{item.month}</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>{item.year}</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>{item.installments}</td>
-                <td className=' text-center border border-[#1a2b2e] p-2'>{item.balance}</td>
-              </tr>
+              {installments.map((item, index) => (
+                <tr key={index}>
+                  <td className=' text-left border border-[#1a2b2e] p-2'>{index + 1}</td>
+                  <td className=' text-center border border-[#1a2b2e] p-2'>{item.date}</td>
+                  <td className=' text-center border border-[#1a2b2e] p-2'>{item.month}</td>
+                  <td className=' text-center border border-[#1a2b2e] p-2'>{item.year}</td>
+                  <td className=' text-center border border-[#1a2b2e] p-2'>{item.installments}</td>
+                  <td className=' text-center border border-[#1a2b2e] p-2'>{item.balance}</td>
+                </tr>
               ))}
             </tbody>
           </table>
-          <button
-           className={`w-[28%] py-2 px-2 bg-transparent border mt-2 border-[#1a2b2e] rounded-md
-            ${pButton == true? "flex" : "hidden"} 
-            justify-center items-center gap-1 hover:tracking-wider duration-150`} onClick={handlePrint}>
-            Print Installment <MdKeyboardDoubleArrowRight size={20} />
-          </button>
+          <div className=' flex gap-2'>
+            <button
+              className={`w-[28%] py-2 px-2 bg-transparent border mt-2 border-[#1a2b2e] rounded-md
+            ${pButton == true ? "flex" : "hidden"} 
+            justify-center items-center gap-1 hover:tracking-wider duration-150`} onClick={() => handlePrint("print")}>
+              Print Installment <MdKeyboardDoubleArrowRight size={20} />
+            </button>
+            <button
+              className={`w-[28%] py-2 px-2 bg-transparent border mt-2 border-[#1a2b2e] rounded-md
+            ${pButton == true ? "flex" : "hidden"} 
+            justify-center items-center gap-1 hover:tracking-wider duration-150`} onClick={handleClear}>
+              Clear Record <MdKeyboardDoubleArrowRight size={20} />
+            </button>
+          </div>
         </div>
       </div>
+      <PrintPage installments={installments} product={product} className=" hidden" id="print" />
     </>
   )
 }
